@@ -1,0 +1,58 @@
+// 可以通过该文件定义模块公共的依赖，
+// 1、避免重复依赖，导致apk体积变大
+// 2、统一版本，方便修改依赖库的版本号
+project.ext {
+    // 设置App配置
+    setAppDefaultConfig = {
+        extension ->
+            extension.apply plugin: 'com.android.application'
+            extension.description "app"
+            setAndroidConfig extension.android
+            setDependencies extension.dependencies
+    }
+    //设置lib配置
+    setLibDefaultConfig = {
+        extension ->
+            extension.apply plugin: 'com.android.library'
+            extension.description "lib"
+            setAndroidConfig extension.android
+            setDependencies extension.dependencies
+    }
+    // 设置Android配置
+    setAndroidConfig = {
+        extension ->
+            extension.signingConfigs {
+                release {
+                    storeFile file('C:\\files\\androidKey\\demo.jks')
+                    storePassword '111111'
+                    keyAlias = 'demo'
+                    keyPassword '111111'
+                }
+            }
+            extension.compileSdkVersion 28
+            extension.defaultConfig {
+                minSdkVersion 15
+                targetSdkVersion 28
+                testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+                javaCompileOptions {
+                    annotationProcessorOptions {
+                        arguments = [moduleName: extension.project.getName()]
+                    }
+                }
+                extension.dataBinding {
+                    enable = true
+                }
+            }
+    }
+    //设置依赖
+    setDependencies = {
+        extension ->
+            extension.implementation fileTree(dir: 'libs', includes: ['*.jar'])
+            extension.implementation 'androidx.appcompat:appcompat:1.0.2'
+            extension.implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+            extension.testImplementation 'junit:junit:4.12'
+            extension.androidTestImplementation 'androidx.test:runner:1.1.1'
+            extension.androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+            extension.androidTestImplementation "androidx.test.ext:junit:1.1.0"
+    }
+}
