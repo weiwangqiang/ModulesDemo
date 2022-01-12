@@ -22,12 +22,12 @@ project.ext {
     setAndroidConfig = {
         extension ->
             extension.signingConfigs {
-                release {
-                    storeFile file('C:\\files\\androidKey\\demo.jks')
-                    storePassword '111111'
-                    keyAlias = 'demo'
-                    keyPassword '111111'
-                }
+//                release {
+//                    storeFile file('D:\\workplace\\android\\androidKey\\demo.jks')
+//                    storePassword '111111'
+//                    keyAlias = 'demo'
+//                    keyPassword '111111'
+//                }
             }
             extension.compileSdkVersion 28
             extension.defaultConfig {

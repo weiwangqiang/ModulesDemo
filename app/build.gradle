@@ -15,16 +15,21 @@ android {
     }
     buildTypes {
         release {
+            //启用代码压缩，混淆，优化
             minifyEnabled true
-            shrinkResources true // 去掉无用的资源和代码文件，需要设置 minifyEnabled true
+            // 去掉无用的资源和代码文件，需要设置 minifyEnabled true
+            shrinkResources true
             //用于配置manifest中的meta数据
             manifestPlaceholders = [
                     channel : "666",
                     version : "2.2",
                     app_name: "app_name" //需要在  AndroidManifest中配置 tools:replace="android:label"
             ]
-            buildConfigField("String", "APP_NAME", "\"release\"") // 可以直接在BuildConfig.APP_NAME获取
-            signingConfig signingConfigs.release  // 在default_config.gradle中配置全局签名
+            // 可以直接在BuildConfig.APP_NAME获取
+            buildConfigField("String", "APP_NAME", "\"release\"")
+            // 在default_config.gradle中配置全局签名
+//            signingConfig signingConfigs.release
+            //ProGuard规则文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -35,6 +40,8 @@ android {
                     app_name: "app_name"
             ]
             buildConfigField("String", "APP_NAME", "\"debug\"")
+            // 在根路径下的 gradle.properties 中配置AppKey的值
+            buildConfigField("String", "APP_KEY", "\"${AppKey}\"")
         }
     }
     flavorDimensions 'type'

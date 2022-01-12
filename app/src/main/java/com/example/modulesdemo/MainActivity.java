@@ -3,17 +3,18 @@ package com.example.modulesdemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
-import java.net.DatagramPacket;
-
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BuildConfig.APP_NAME
+        Log.d(TAG, "onCreate: " + BuildConfig.APP_NAME);
     }
 
     /**
